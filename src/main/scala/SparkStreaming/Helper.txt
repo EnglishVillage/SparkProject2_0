@@ -1,0 +1,115 @@
+/**
+  * StructField参数里边的DataType类型列表:
+  * */
+BooleanType -> java.lang.Boolean
+ByteType -> java.lang.Byte
+ShortType -> java.lang.Short
+IntegerType -> java.lang.Integer
+FloatType -> java.lang.Float
+DoubleType -> java.lang.Double
+StringType -> String
+DecimalType -> java.math.BigDecimal
+
+DateType -> java.sql.Date
+TimestampType -> java.sql.Timestamp
+
+BinaryType -> byte array
+ArrayType -> scala.collection.Seq (use getList for java.util.List)
+MapType -> scala.collection.Map (use getJavaMap for java.util.Map)
+StructType -> org.apache.spark.sql.Row
+
+
+
+Spark的持久化级别:StorageLevel
+val NONE = new StorageLevel(false, false, false, false)//不保存到内存或者硬盘中
+val DISK_ONLY = new StorageLevel(true, false, false, false)//将未序列化的Java对象格式保存到硬盘中
+val DISK_ONLY_2 = new StorageLevel(true, false, false, false, 2)//将未序列化的Java对象格式保存到硬盘中,保存2份
+val MEMORY_ONLY = new StorageLevel(false, true, false, true)
+val MEMORY_ONLY_2 = new StorageLevel(false, true, false, true, 2)
+val MEMORY_ONLY_SER = new StorageLevel(false, true, false, false)//将已序列化的Java对象格式保存到内存中
+val MEMORY_ONLY_SER_2 = new StorageLevel(false, true, false, false, 2)
+val MEMORY_AND_DISK = new StorageLevel(true, true, false, true)
+val MEMORY_AND_DISK_2 = new StorageLevel(true, true, false, true, 2)
+val MEMORY_AND_DISK_SER = new StorageLevel(true, true, false, false)
+val MEMORY_AND_DISK_SER_2 = new StorageLevel(true, true, false, false, 2)//将已序列化的Java对象格式保存到内存或者硬盘中,保存2份
+val OFF_HEAP = new StorageLevel(true, true, true, false, 1)
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// class:DStream
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+  * 默认就有这个参数.只能读parquet文件,并且合并成一个DF.如果加入其它文件,则会报错.
+  * */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// class:PairDStreamFunctions[通过隐式转换在DStream[键，值]类型中添加额外方法。]
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//save默认保存成parquet格式文件
+/**
+  * SaveMode.Append:在输出目录下新增加文件,不会改变原来旧文件
+  * SaveMode.ErrorIfExists:目录存在会报如下异常(Exception in thread "main" org.apache.spark.sql.AnalysisException: path file:/d:/tmp/sqldemo already exists.;)
+  * SaveMode.Ignore:目录存在,则不保存[相当于save()不执行]
+  * SaveMode.Overwrite:目录存在,则覆盖原来的所有文件
+  * */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// class:
+//////////////////////////////////////////////////////////////////////////////////////////////

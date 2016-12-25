@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="utf-8"?>
+<etl>
+<field>
+    <key>brand</key>
+    <actions>
+        <action>remove-escapechar</action>
+        <action>case-insensitive</action>
+        <action>split-en</action>
+    </actions>
+    <values>
+        <value>爱思韩</value>
+        <value>OEHE</value>
+        <value>212CCXII</value>
+        <value>A.J.BB</value>
+        <value>a02</value>
+        <value>A21</value>
+        <value>aape</value>
+        <value>ADAM LIPPES</value>
+        <value>Adidas/阿迪达斯</value>
+        <value>AGNONA</value>
+        <value>Akseries</value>
+        <value>ALBERTA FERRETTI</value>
+        <value>ALESSANDRA RICH</value>
+        <value>ALEXANDER MCQUEEN</value>
+        <value>ALEXANDER WANG</value>
+        <value>ALICE + OLIVIA</value>
+        <value>ALICE CICOLINI</value>
+        <value>ALISON LOU</value>
+        <value>ALTUZARRA</value>
+        <value>ALVARO</value>
+        <value>AMII</value>
+        <value>ANNA SUI</value>
+        <value>ANTA/安踏</value>
+        <value>Apple</value>
+        <value>AR</value>
+        <value>Asics/亚瑟斯</value>
+        <value>ASOBIO</value>
+        <value>AZVF</value>
+        <value>BALENCIAGA</value>
+        <value>BALMAIN</value>
+        <value>Bape(衣服潮牌)</value>
+        <value>BEBEERU</value>
+        <value>BELLE</value>
+        <value>BLUESHEROES</value>
+        <value>BOTTEGA VENETA</value>
+        <value>broadcast/播</value>
+        <value>BURBERRY</value>
+        <value>C&amp;2K</value>
+        <value>C&amp;A</value>
+        <value>C2潮朝</value>
+        <value>Cache-Cache</value>
+        <value>cadidl</value>
+        <value>CALVIN KLEIN UNDERWEAR</value>
+        <value>celine</value>
+        <value>Chanel</value>
+        <value>CHEVIGNON</value>
+        <value>CHLOE</value>
+        <value>CHRISTIAN LOUBOUTIN</value>
+        <value>Coach</value>
+        <value>Columbia/哥伦比亚</value>
+        <value>COMME DES GARCONS</value>
+        <value>CONNER LEE</value>
+        <value>Converse/匡威</value>
+        <value>CRW&amp;ESTR</value>
+        <value>DAZZLE</value>
+        <value>de fonseca</value>
+        <value>deerejack</value>
+        <value>Defonseca</value>
+        <value>DeskMate</value>
+        <value>devil nut</value>
+        <value>DHUB</value>
+        <value>Dickies</value>
+        <value>Dior</value>
+        <value>Dirs</value>
+        <value>DKNY</value>
+        <value>DoaVsng</value>
+        <value>DOLCE &amp; GABBANA</value>
+        <value>Dunhilll</value>
+        <value>DUSSI</value>
+        <value>E-LAND</value>
+        <value>EMILIO PUCCI</value>
+        <value>erke/鸿星尔克</value>
+        <value>ESPRIT</value>
+        <value>ESVT</value>
+        <value>evisu</value>
+        <value>FENDI</value>
+        <value>Five Plus</value>
+        <value>flowerscoming</value>
+        <value>FOREVER21</value>
+        <value>G2000</value>
+        <value>Gen/简</value>
+        <value>George Walk</value>
+        <value>Giorgio Armani</value>
+        <value>GIVENCHY</value>
+        <value>GOODENOUGH</value>
+        <value>GRACEMMXIII</value>
+        <value>G-STAR</value>
+        <value>GUCCI</value>
+        <value>Guess</value>
+        <value>Gurun vani</value>
+        <value>GXG</value>
+        <value>gxg.jeans</value>
+        <value>H&amp;M</value>
+        <value>HALSTON HERITAGE</value>
+        <value>heipao</value>
+        <value>Hermes</value>
+        <value>Honeys</value>
+        <value>Howoreasy</value>
+        <value>HRTIS</value>
+        <value>Hugo Boss</value>
+        <value>IJOY</value>
+        <value>izzue</value>
+        <value>JACK JOHNNY</value>
+        <value>jack wolfshin/狼爪</value>
+        <value>JackJones</value>
+        <value>Jasonwood</value>
+        <value>JIMMY CHOO</value>
+        <value>JUSTYLE</value>
+        <value>K328ICACNE</value>
+        <value>kailas/凯乐石</value>
+        <value>Kappa/背靠背</value>
+        <value>Kate spade new York</value>
+        <value>Kenzo</value>
+        <value>KNNE</value>
+        <value>LACOSTE</value>
+        <value>lagogo</value>
+        <value>LANVIN</value>
+        <value>Last Order</value>
+        <value>Lee</value>
+        <value>Levi’s</value>
+        <value>Lining/李宁</value>
+        <value>LOEWE</value>
+        <value>LOJO</value>
+        <value>Louis Vuitton</value>
+        <value>LUCKY OZASEC</value>
+        <value>M2monline</value>
+        <value>MANGO</value>
+        <value>Marc jacbos</value>
+        <value>Marisfrolg</value>
+        <value>MCM</value>
+        <value>Me&amp;City</value>
+        <value>merdor</value>
+        <value>mineeor</value>
+        <value>mishka</value>
+        <value>Miu Miu</value>
+        <value>Mo&amp;Co</value>
+        <value>moonicer</value>
+        <value>Moschino</value>
+        <value>Mr.benyou</value>
+        <value>MUJI(无印良品)</value>
+        <value>MULBERRY</value>
+        <value>N+a纳迪亚</value>
+        <value>NAMP</value>
+        <value>NEW BALANCE/新百伦</value>
+        <value>NEWS</value>
+        <value>Nike/耐克</value>
+        <value>NUMBER(N)INE</value>
+        <value>OCSIN</value>
+        <value>OLMOS</value>
+        <value>ONEBUYE</value>
+        <value>ONLY</value>
+        <value>OVBE</value>
+        <value>PASS</value>
+        <value>PatriziaPepe</value>
+        <value>Paul Frank</value>
+        <value>Paul smith</value>
+        <value>Peak/匹克</value>
+        <value>PLAYBOY PHYSICAL</value>
+        <value>PLOVER</value>
+        <value>Prada</value>
+        <value>Puma/彪马</value>
+        <value>QUIKSILVER</value>
+        <value>Rebecca minkoff</value>
+        <value>REFUO</value>
+        <value>ROWILUX</value>
+        <value>RYRY</value>
+        <value>S.DEER</value>
+        <value>Salvatore Ferragamo</value>
+        <value>Selected</value>
+        <value>SENKU</value>
+        <value>SIMWOOD</value>
+        <value>Skechers/斯凯奇</value>
+        <value>Soinku潮型库</value>
+        <value>STAY REAL</value>
+        <value>STELLA MCCARTNEY</value>
+        <value>stussy</value>
+        <value>supreme</value>
+        <value>TBA</value>
+        <value>the north face/北脸</value>
+        <value>Timberland/添柏岚</value>
+        <value>TOD'S</value>
+        <value>TOM FORD</value>
+        <value>TOMMYHILFIGER</value>
+        <value>TOPOT</value>
+        <value>Toread/探路者</value>
+        <value>TRENDIANO</value>
+        <value>UGG</value>
+        <value>Uniqlo</value>
+        <value>UO</value>
+        <value>UR</value>
+        <value>UYUK</value>
+        <value>VALENTINO</value>
+        <value>VANS</value>
+        <value>VEROMODA</value>
+        <value>VERSACE</value>
+        <value>Victoria gossip</value>
+        <value>viishow</value>
+        <value>Visvim(鞋日本潮牌)</value>
+        <value>Vivienne westwood</value>
+        <value>VIVIENNE WESTWOOD ANGLOMANIA</value>
+        <value>X-Large</value>
+        <value>XTEP/特步</value>
+        <value>y-3</value>
+        <value>Yellow Earth</value>
+        <value>YE'SBYYESIR</value>
+        <value>YUTUBOY</value>
+        <value>ZARA</value>
+        <value>ZERO</value>
+        <value>ZK</value>
+        <value>ZORMO</value>
+        <value>ZPPSN</value>
+        <value>ZZ&amp;FF</value>
+        <value>阿斯顿名爵</value>
+        <value>阿依莲</value>
+        <value>哎布哎偶</value>
+        <value>艾蓓怡</value>
+        <value>艾范达</value>
+        <value>艾格Etam</value>
+        <value>艾格WEEKEND</value>
+        <value>艾莱依</value>
+        <value>艾盼希</value>
+        <value>爱黛姬</value>
+        <value>爱堤儿</value>
+        <value>爱尚潮流</value>
+        <value>爱尚街脚</value>
+        <value>爱欣贝贝</value>
+        <value>奥帝伦(aodilun)</value>
+        <value>奥康</value>
+        <value>奥康(Aokang)</value>
+        <value>奥兰狮</value>
+        <value>奥斯香</value>
+        <value>澳奇美</value>
+        <value>巴里特莎</value>
+        <value>巴鲁特(Brloote)</value>
+        <value>芭妮诗</value>
+        <value>白领丽人</value>
+        <value>百爱女神</value>
+        <value>百宝盾</value>
+        <value>百家好</value>
+        <value>百洛安</value>
+        <value>百年纪念(centenary)</value>
+        <value>百图</value>
+        <value>百宜娇</value>
+        <value>佰思梵妮</value>
+        <value>柏迪马丁(BaiDiMartin)</value>
+        <value>柏丝茵</value>
+        <value>班米洛</value>
+        <value>班尼路(Baleno)</value>
+        <value>邦楚仕</value>
+        <value>保罗盖帝</value>
+        <value>堡狮龙(bossini)</value>
+        <value>爆眼(BQODQO)</value>
+        <value>北极绒(Bejirog)</value>
+        <value>贝梵诗</value>
+        <value>蓓尔</value>
+        <value>笨先生</value>
+        <value>比菲力(BEVERRY)</value>
+        <value>碧叶云台</value>
+        <value>波司登</value>
+        <value>波斯蒂琪</value>
+        <value>帛薇儿</value>
+        <value>搏拓</value>
+        <value>布布发现</value>
+        <value>布莱希尔顿</value>
+        <value>步克韦斯拓</value>
+        <value>才子</value>
+        <value>才子(TRIES)</value>
+        <value>潮路思</value>
+        <value>潮无界</value>
+        <value>承发</value>
+        <value>城市前端(chengshiqianduan)</value>
+        <value>驰琴</value>
+        <value>初棉</value>
+        <value>初语</value>
+        <value>纯束</value>
+        <value>淳正</value>
+        <value>达芙妮</value>
+        <value>大卫米勒(David miller)</value>
+        <value>大卫山(dave hill)</value>
+        <value>戴维李</value>
+        <value>丹尔曼帝</value>
+        <value>丹尔斯特</value>
+        <value>丹杰仕(DAN JIE SHI)</value>
+        <value>丹雷斯</value>
+        <value>丹琪杰思</value>
+        <value>丹思露</value>
+        <value>丹姿奴</value>
+        <value>稻草人(MEXICAN)</value>
+        <value>德尔加多(Delocrd)</value>
+        <value>狄派斯</value>
+        <value>迪芬.璐嘉</value>
+        <value>迪莱图</value>
+        <value>迪聖凯尼</value>
+        <value>迪士尼Disney</value>
+        <value>地球城(DIQIUCHENG)</value>
+        <value>地素</value>
+        <value>帝凡冈</value>
+        <value>帝客(Dickies)</value>
+        <value>帝尼格瑞</value>
+        <value>碟尹恋</value>
+        <value>东帝名坊</value>
+        <value>东奇古道(DonqeGoodal)</value>
+        <value>岽堂禾</value>
+        <value>都言</value>
+        <value>杜尼奥(DUNIAO)</value>
+        <value>盾狐</value>
+        <value>鄂尔多斯</value>
+        <value>鳄鱼恤</value>
+        <value>恩尚</value>
+        <value>恩裳</value>
+        <value>法蒂娜</value>
+        <value>法凯曼(FAKAIMAN)</value>
+        <value>法玛莎(FAVMARTHA)</value>
+        <value>法琦瑪帝</value>
+        <value>法萨奴</value>
+        <value>法尊尼</value>
+        <value>凡客诚品</value>
+        <value>凡转(FANZHUAN)</value>
+        <value>梵奥姿</value>
+        <value>梵蒂茜娅</value>
+        <value>芳妍丽芸</value>
+        <value>非凡领袖</value>
+        <value>粉红大布娃娃</value>
+        <value>风尚缌蕴</value>
+        <value>枫莲果</value>
+        <value>枫衣绵饰</value>
+        <value>枫之玲</value>
+        <value>弗詹昌</value>
+        <value>福尔亮</value>
+        <value>富贵鸟</value>
+        <value>盖璞(GAP)</value>
+        <value>甘乃迪</value>
+        <value>港棉</value>
+        <value>高梵</value>
+        <value>哥弟</value>
+        <value>歌莉娅</value>
+        <value>歌米莲</value>
+        <value>歌萨娅</value>
+        <value>歌资妃</value>
+        <value>革士士</value>
+        <value>格芭娜</value>
+        <value>格蓝凯</value>
+        <value>格妮娅</value>
+        <value>格缇妃</value>
+        <value>公牛世家(G.N.Shi Jia)</value>
+        <value>宫奴</value>
+        <value>勾股</value>
+        <value>古莱登(GODLIKE)</value>
+        <value>古奇天伦</value>
+        <value>古仕卡特(GUSSKATER)</value>
+        <value>古依舍</value>
+        <value>哈森</value>
+        <value>海澜之家(HEILAN HOME)</value>
+        <value>憨厚皇后</value>
+        <value>韩贝伊都</value>
+        <value>韩卟</value>
+        <value>韩都衣舍</value>
+        <value>韩尼姿</value>
+        <value>韩夕欧</value>
+        <value>韩雅萱</value>
+        <value>韩依欣</value>
+        <value>悍风</value>
+        <value>悍鹿</value>
+        <value>翰度(HANDU)</value>
+        <value>好东家</value>
+        <value>好衣男寻</value>
+        <value>皓川崎</value>
+        <value>皓顿(HAUTTON)</value>
+        <value>黑先生</value>
+        <value>亨宇</value>
+        <value>恒潮(HengChao)</value>
+        <value>恒源祥(HYX)</value>
+        <value>红都</value>
+        <value>红豆(Hodo)</value>
+        <value>红蜻蜓</value>
+        <value>红蜻蜓(RED DRAGONFLY)</value>
+        <value>红人</value>
+        <value>红袖</value>
+        <value>宏浩</value>
+        <value>鸿泰春天</value>
+        <value>花瓣雨世家</value>
+        <value>花妃世家</value>
+        <value>花花公子(PLAYBOY)</value>
+        <value>花田雅织</value>
+        <value>华菲.型格(FAIRWHALE SHAKE)</value>
+        <value>环球</value>
+        <value>徽苏儿</value>
+        <value>回力(Warrior)</value>
+        <value>火轮</value>
+        <value>吉禾伊嘉</value>
+        <value>吉普(JEEP)</value>
+        <value>吉普盾(NIAN JEEP)</value>
+        <value>吉普战车(JIPUZHANCHE)</value>
+        <value>极地鸥</value>
+        <value>霁蓝</value>
+        <value>佳衣名品</value>
+        <value>简草</value>
+        <value>简裔酷(JIANYIKU)</value>
+        <value>江南布衣</value>
+        <value>娇芙莎</value>
+        <value>娇人蜜雪</value>
+        <value>娇舒黛</value>
+        <value>骄姣夫人</value>
+        <value>杰奥思琳</value>
+        <value>杰豪</value>
+        <value>杰克琼斯(Jack Jones)</value>
+        <value>杰森迪亚</value>
+        <value>杰西伍</value>
+        <value>捷克莱斯</value>
+        <value>金猴</value>
+        <value>金里昊特</value>
+        <value>金利来(Goldlion)</value>
+        <value>金泫雅</value>
+        <value>锦澜伊悦</value>
+        <value>劲霸男装(K-Boxing)</value>
+        <value>九牧王(JOEONE)</value>
+        <value>玖熙</value>
+        <value>举翼王子</value>
+        <value>卡宾(CABBEEN)</value>
+        <value>卡丹路</value>
+        <value>卡帝乐鳄鱼(CARTELO)</value>
+        <value>卡菲尼</value>
+        <value>卡洛尔菲</value>
+        <value>卡洛仙</value>
+        <value>卡玛(KAMA)</value>
+        <value>卡玛娅</value>
+        <value>卡圣仕</value>
+        <value>卡素依</value>
+        <value>凯登博</value>
+        <value>凯王帝</value>
+        <value>康奈</value>
+        <value>珂卡芙</value>
+        <value>科维依</value>
+        <value>可米果果</value>
+        <value>可情小美</value>
+        <value>克里西蒙(CKLIXIMEN)</value>
+        <value>克林科斯</value>
+        <value>快乐嘉人</value>
+        <value>快乐玛丽</value>
+        <value>快鹿</value>
+        <value>魁依</value>
+        <value>阔色</value>
+        <value>莱卡金顿</value>
+        <value>莱派蒂</value>
+        <value>兰情芳</value>
+        <value>蓝帕佩尼</value>
+        <value>蓝莎域</value>
+        <value>蓝山汐</value>
+        <value>蓝万</value>
+        <value>蓝雨蝶依</value>
+        <value>蓝月芊魅</value>
+        <value>蘭菁</value>
+        <value>朗衣贝(langyibei)</value>
+        <value>浪莎(LangSha)</value>
+        <value>乐町</value>
+        <value>雷迪博德</value>
+        <value>黎纯(LICHUN)</value>
+        <value>李维斯(Levi's)</value>
+        <value>丽德缦</value>
+        <value>利郎</value>
+        <value>利郎(LILANZ)</value>
+        <value>利绅狐(lishenhu)</value>
+        <value>莲香鸟</value>
+        <value>良品兔子</value>
+        <value>靓莎绮</value>
+        <value>裂帛</value>
+        <value>邻家天使</value>
+        <value>琳艾琳</value>
+        <value>琳朵儿</value>
+        <value>伶羊</value>
+        <value>零柒零捌</value>
+        <value>流氓兔</value>
+        <value>胧田雅织</value>
+        <value>胧月丽妍</value>
+        <value>路德恩</value>
+        <value>路路佳</value>
+        <value>露丝凯斯</value>
+        <value>伦敦雾(London Fog)</value>
+        <value>罗蒙</value>
+        <value>骆驼(CAMEL)</value>
+        <value>骆驼动感(camel active)</value>
+        <value>珞俐娅</value>
+        <value>落雁莎</value>
+        <value>吕卡翁</value>
+        <value>马克华菲(FAIRWHALE)</value>
+        <value>玛肯(MaueKen)</value>
+        <value>玛亿尚(MAYISHANG)</value>
+        <value>蚂蚁之恋</value>
+        <value>麦爵斯蒂</value>
+        <value>麦卡希妮</value>
+        <value>麦崎诺</value>
+        <value>麦绮绣</value>
+        <value>漫芭森</value>
+        <value>美蝶黛</value>
+        <value>美丽嫦</value>
+        <value>美莲香</value>
+        <value>美妮姬</value>
+        <value>美特斯邦威(metersbonwe)</value>
+        <value>美天依奂</value>
+        <value>美茵儿</value>
+        <value>美足隆</value>
+        <value>魅力芭藜</value>
+        <value>蒙加</value>
+        <value>蒙沃儿</value>
+        <value>檬伊</value>
+        <value>梦幻俏佳人</value>
+        <value>梦洁莉</value>
+        <value>梦舒雅</value>
+        <value>梦特娇</value>
+        <value>梦昕</value>
+        <value>谜尚妮</value>
+        <value>米洛克</value>
+        <value>米斯康</value>
+        <value>棉记</value>
+        <value>淼妙</value>
+        <value>名门望足</value>
+        <value>铭爵风</value>
+        <value>缪缪</value>
+        <value>摩亚诺</value>
+        <value>魔灯诚堡</value>
+        <value>茉汀</value>
+        <value>莫卡妮雪</value>
+        <value>莫蕾蔻蕾</value>
+        <value>墨诺佰MANOBLE</value>
+        <value>木低语</value>
+        <value>木低语(MUDIYU)</value>
+        <value>木果果木</value>
+        <value>木林森</value>
+        <value>木林森(MULINSEN)</value>
+        <value>木牛牛马</value>
+        <value>木真了</value>
+        <value>慕卡霏</value>
+        <value>慕派迪</value>
+        <value>慕塔妃</value>
+        <value>纳迪亚(N+a)</value>
+        <value>南极人(Nanjiren)</value>
+        <value>妮卟</value>
+        <value>牛头酋长</value>
+        <value>诺娲</value>
+        <value>女人镜</value>
+        <value>噢邸博</value>
+        <value>欧洛卡迪</value>
+        <value>欧莎</value>
+        <value>欧诗罗兰</value>
+        <value>欧时力</value>
+        <value>欧以纯男</value>
+        <value>帕宝缇</value>
+        <value>帕达索</value>
+        <value>佩兰特</value>
+        <value>品立(PINLI)</value>
+        <value>蒲优蔓</value>
+        <value>七格格</value>
+        <value>七匹狼(SEPTWOLVES)</value>
+        <value>柒牌(SEVEN)</value>
+        <value>绮彤小镇</value>
+        <value>千百度</value>
+        <value>千莹</value>
+        <value>千纸鹤(QZHIHE)</value>
+        <value>浅末</value>
+        <value>强人</value>
+        <value>乔丹</value>
+        <value>乔丹格兰(Joedon Golan)</value>
+        <value>俏情朵</value>
+        <value>俏情芬</value>
+        <value>俏悦妮</value>
+        <value>青春伴侣</value>
+        <value>青果</value>
+        <value>情莲儿</value>
+        <value>琼瑛</value>
+        <value>秋水伊人</value>
+        <value>秋水再度</value>
+        <value>秋之北纬</value>
+        <value>全尚美</value>
+        <value>热风</value>
+        <value>人本</value>
+        <value>芮菡</value>
+        <value>芮婕</value>
+        <value>闰楷</value>
+        <value>赛斯特</value>
+        <value>赛途</value>
+        <value>三.围.传.说</value>
+        <value>三彩</value>
+        <value>三福(SANFU)</value>
+        <value>森雷司(SENLEIS)</value>
+        <value>森林水仙</value>
+        <value>森马(Semir)</value>
+        <value>森宿</value>
+        <value>沙驰</value>
+        <value>莎贝茜</value>
+        <value>莎吉尼</value>
+        <value>莎米乐</value>
+        <value>杉杉(FIRS)</value>
+        <value>衫步</value>
+        <value>闪步</value>
+        <value>尚古主义</value>
+        <value>尚莉琪</value>
+        <value>尚芝恋</value>
+        <value>裳曼</value>
+        <value>裳伊居</value>
+        <value>少爷很忙</value>
+        <value>神州骆驼(earth camel)</value>
+        <value>沈衣宸</value>
+        <value>升宇璐法雅</value>
+        <value>圣得西</value>
+        <value>圣高</value>
+        <value>圣朗博士(SHENGLANGBOSS)</value>
+        <value>诗篇</value>
+        <value>十米布</value>
+        <value>拾货</value>
+        <value>兽霸</value>
+        <value>兽王</value>
+        <value>姝漫</value>
+        <value>淑女屋</value>
+        <value>舒一斯</value>
+        <value>司奇隆(Siqilong)</value>
+        <value>思莱德(selected)</value>
+        <value>斯蒂芬妮</value>
+        <value>斯米尔</value>
+        <value>速写</value>
+        <value>塔里尼欧(La’terraneo)</value>
+        <value>台湾骆驼</value>
+        <value>臺丝</value>
+        <value>太平鸟</value>
+        <value>太子莲</value>
+        <value>太子龙(TEDELON)</value>
+        <value>泰和源</value>
+        <value>汤姆斯</value>
+        <value>唐狮(TonLion)</value>
+        <value>媞芮</value>
+        <value>缇可</value>
+        <value>拓路者(pioneercamp)</value>
+        <value>拓一(TUOYI)</value>
+        <value>外莱依</value>
+        <value>王菲儿</value>
+        <value>威可多(VICUTU)</value>
+        <value>威劳丹思</value>
+        <value>威世米邦</value>
+        <value>维杰斯(WINJEANS)</value>
+        <value>维络斯</value>
+        <value>魏晋风度</value>
+        <value>温妮姿</value>
+        <value>舞羽伦比</value>
+        <value>西伯利娜</value>
+        <value>西村名物</value>
+        <value>西瑞</value>
+        <value>西莎尔</value>
+        <value>西域骆驼</value>
+        <value>西子閣</value>
+        <value>希伯名</value>
+        <value>希黛月</value>
+        <value>熙世界sllsky</value>
+        <value>喜斯特</value>
+        <value>夏尔维纳</value>
+        <value>夏函</value>
+        <value>纤慕(XIANMU)</value>
+        <value>纤秋梦</value>
+        <value>香爱蜜</value>
+        <value>香芙曼</value>
+        <value>香情姿</value>
+        <value>想川</value>
+        <value>向佐</value>
+        <value>鞋小二</value>
+        <value>新百伦领跑</value>
+        <value>馨诗雅悦</value>
+        <value>幸福时光(happytime)</value>
+        <value>秀莉芬</value>
+        <value>秀态</value>
+        <value>锈言</value>
+        <value>旭冲</value>
+        <value>轩梦飞翔</value>
+        <value>雪花锦绣(xuehuajinxiu)</value>
+        <value>雪晶典</value>
+        <value>雪中飞</value>
+        <value>鸭鸭</value>
+        <value>雅戈尔(YOUNGOR)</value>
+        <value>雅金圣妮</value>
+        <value>雅鹿</value>
+        <value>娅丽达</value>
+        <value>洋稻人</value>
+        <value>妖精的口袋</value>
+        <value>耶妍</value>
+        <value>伊儿贝斯</value>
+        <value>伊菲蓝</value>
+        <value>伊芙丽</value>
+        <value>伊情飞扬</value>
+        <value>衣品天成</value>
+        <value>衣塑家(E-artist)</value>
+        <value>衣缘系我</value>
+        <value>衣之国度</value>
+        <value>依妃奈拉</value>
+        <value>依兰娇媚</value>
+        <value>依澜枫采</value>
+        <value>依芝宣</value>
+        <value>宜舒娜</value>
+        <value>弋诗索曼</value>
+        <value>艺派伊人</value>
+        <value>艺途</value>
+        <value>逸尘雅致</value>
+        <value>逸阳</value>
+        <value>逸足风</value>
+        <value>意尔康</value>
+        <value>意树(EYENSREE)</value>
+        <value>茵曼</value>
+        <value>音儿</value>
+        <value>英伦班纳</value>
+        <value>樱花飘</value>
+        <value>盈安芬</value>
+        <value>盈雪兰</value>
+        <value>萤月丽织</value>
+        <value>优杰仕(URSMART)</value>
+        <value>优品原创</value>
+        <value>有衣有靠(UYUK)</value>
+        <value>佑琪蒂娜</value>
+        <value>俞兆林(YUZHAOLIN)</value>
+        <value>与狼共舞(DANCING WOLVES)</value>
+        <value>玉纬</value>
+        <value>玉希</value>
+        <value>郁香妍</value>
+        <value>御乐</value>
+        <value>元姬</value>
+        <value>缘未央</value>
+        <value>远步</value>
+        <value>月汐</value>
+        <value>悦欣之恋</value>
+        <value>雲菲</value>
+        <value>战地吉普(AFS JEEP)</value>
+        <value>真维斯(Jeanswest)</value>
+        <value>臻杰龙(JUSTLONG)</value>
+        <value>正衣先生</value>
+        <value>蜘蛛王</value>
+        <value>智途</value>
+        <value>智途(ZHITU)</value>
+        <value>置衣堂(zhiyitang)</value>
+        <value>竹香韵雅</value>
+        <value>庄爵(ZONEJOY)</value>
+        <value>卓爾雷登(ZOERLEIDIN)</value>
+        <value>卓诗尼</value>
+        <value>卓紫花</value>
+        <value>卓紫萱</value>
+        <value>啄木鸟</value>
+        <value>姿昵叶</value>
+        <value>走索</value>
+        <value>足间舞</value>
+        <value>尊首(ZUNSHOU)</value>
+        <value>佐丹奴(Giordano)</value>
+        <value>佐兰图</value>
+    </values>
+</field>
+<field>
+    <key>material</key>
+    <actions>
+        <action>remove-escapechar</action>
+        <action>case-insensitive</action>
+    </actions>
+    <values>
+        <value altvalues="其它,其它,其它材质,其它面料">其他</value>
+        <value altvalues="棉质,棉布,棉质面料,纯棉">棉</value>
+        <value altvalues="羊毛,羊羔毛,羊绒,羊绒大衣料,羊毛大衣料">羊毛</value>
+        <value altvalues="山羊皮,绵羊皮">羊皮</value>
+        <value altvalues="pu皮">pu</value>
+        <value altvalues="真丝面料">真丝</value>
+        <value altvalues="其它天然纤维">其他天然纤维</value>
+        <value altvalues="其他人造纤维">其他合成纤维</value>
+        <value altvalues="雪纺面料">雪纺</value>
+        <value altvalues="莫代尔面料">莫代尔</value>
+        <value altvalues="尼龙皮革">尼龙</value>
+        <value altvalues="羽丝绒">羽绒</value>
+        <value altvalues="LYCRA莱卡```">莱卡</value>
+        <value altvalues="印花面料">印花</value>
+        <value altvalues="牛仔布">牛仔</value>
+        <value altvalues="其它皮质">其他皮质</value>
+    </values>
+</field>
+<field>
+    <key>color</key>
+    <actions>
+        <action>remove-escapechar</action>
+        <action>case-insensitive</action>
+    </actions>
+    <values>
+        <value altvalues="其它,其他">其他</value>
+        <value altvalues="黑色系,黑色,黑">黑色</value>
+        <value altvalues="红色系,红色,红">红色</value>
+        <value altvalues="粉色系,粉色,粉">粉色</value>
+        <value altvalues="灰色系,灰色,灰">灰色</value>
+        <value altvalues="蓝色系,蓝色,蓝">蓝色</value>
+        <value altvalues="白色系,白色,白">白色</value>
+        <value altvalues="棕色系,棕色,棕">棕色</value>
+        <value altvalues="紫色系,紫色,紫">紫色</value>
+        <value altvalues="米色系,米色">米色</value>
+        <value altvalues="黄色系,黄色,黄">黄色</value>
+        <value altvalues="绿色系,绿色,绿">绿色</value>
+        <value altvalues="橙色系,橙色,橙">橙色</value>
+        <value altvalues="金色系,金鱼系,金色">金色</value>
+        <value altvalues="褐色系,褐色,褐">褐色</value>
+        <value altvalues="银色系,银色">银色</value>
+        <value altvalues="橙色系,橙色,橙">橙色</value>
+        <value altvalues="透明系,透明色,透明">透明</value>
+        <value altvalues="肤色系,肤色">肤色</value>
+        <value altvalues="青色系,青色,青">青色</value>
+        <value altvalues="藏青色,藏青">藏青色</value>
+        <value altvalues="裸色系,裸色">裸色</value>
+        <value altvalues="浅色系,浅色">浅色</value>
+    </values>
+</field>
+<field>
+    <key>print</key>
+    <actions>
+        <action>remove-escapechar</action>
+        <action>case-insensitive</action>
+    </actions>
+    <values>
+        <value altvalues ="其它">其他</value>
+        <value altvalues ="拼色/撞色">拼色</value>
+        <value altvalues ="植物花卉">植物</value>
+        <value altvalues ="花卉">植物</value>
+        <value altvalues ="花朵">植物</value>
+        <value altvalues ="卡通动漫">卡通</value>
+        <value altvalues ="3D印花">印花</value>
+        <value altvalues ="动物图案">动物</value>
+        <value altvalues ="动物">动物</value>
+    </values>
+</field>
+</etl>

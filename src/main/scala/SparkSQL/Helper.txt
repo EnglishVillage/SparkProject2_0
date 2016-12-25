@@ -1,0 +1,719 @@
+https://www.iteblog.com/archives/1380#1Spark_SQL
+和《Spark SQL整合PostgreSQL》文章中用到的load函数类似，在使用CSV类库的时候，我们需要在options中传入以下几个选项：
+　　1、path：看名字就知道，这个就是我们需要解析的CSV文件的路径，路径支持通配符；
+　　2、header：默认值是false。我们知道，CSV文件第一行一般是解释各个列的含义的名称，如果我们不需要加载这一行，我们可以将这个选项设置为true；
+　　3、delimiter：默认情况下，CSV是使用英文逗号分隔的，如果不是这个分隔，我们就可以设置这个选项。
+　　4、quote：默认情况下的引号是'"'，我们可以通过设置这个选项来支持别的引号。
+　　5、mode：解析的模式。默认值是PERMISSIVE，支持的选项有
+　　　　（1）、PERMISSIVE：尝试解析所有的行，nulls are inserted for missing tokens and extra tokens are ignored.
+　　　　（2）、DROPMALFORMED：drops lines which have fewer or more tokens than expected
+　　　　（3）、FAILFAST: aborts with a RuntimeException if encounters any malformed line
+
+
+
+/**
+  * StructField参数里边的DataType类型列表:
+  * */
+BooleanType -> java.lang.Boolean
+ByteType -> java.lang.Byte
+ShortType -> java.lang.Short
+IntegerType -> java.lang.Integer
+FloatType -> java.lang.Float
+DoubleType -> java.lang.Double
+StringType -> String
+DecimalType -> java.math.BigDecimal
+
+DateType -> java.sql.Date
+TimestampType -> java.sql.Timestamp
+
+BinaryType -> byte array
+ArrayType -> scala.collection.Seq (use getList for java.util.List)
+MapType -> scala.collection.Map (use getJavaMap for java.util.Map)
+StructType -> org.apache.spark.sql.Row
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// class:DataFrameReader/DataStreamReader
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+  * 默认就有这个参数.只能读parquet文件,并且合并成一个DF.如果加入其它文件,则会报错.
+  * */
+val df: DataFrame = sqlContext.read.option("mergeSchema", "true").load(Utils.resourcesPath + "parquet")
+val df = spark.read.format("csv").option("header", "true").option("inferSchema", "true").option("charset", "UTF-8").load(inputPath)
+df.write.format("parquet").option("charset", "UTF-8").save(outputPath)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// class:DataFrameWriter/DataStreamWriter
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//save默认保存成parquet格式文件
+/**
+  * SaveMode.Append:在输出目录下新增加文件,不会改变原来旧文件
+  * SaveMode.ErrorIfExists:目录存在会报如下异常(Exception in thread "main" org.apache.spark.sql.AnalysisException: path file:/d:/tmp/sqldemo already exists.;)
+  * SaveMode.Ignore:目录存在,则不保存[相当于save()不执行]
+  * SaveMode.Overwrite:目录存在,则覆盖原来的所有文件
+  * */
+df2.write.mode(SaveMode.ErrorIfExists).save(Utils.outputPath+"sqldemo")
+df.sort("Date").repartition(1).write.mode(SaveMode.Overwrite).json(Utils.outputPath + "iteblog_apple")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// class:Dataset(2种方式创建Dataset[1.从DataFrame转化(.as方式);2.从旧的Dataset转化])
+//////////////////////////////////////////////////////////////////////////////////////////////
+//下面这几个暂时不知道作用
+//.as("")|.alias("")
+//.cube("","")
+//.flatMap(T=>U)
+//.groupByKey(o => o(0).toString)
+//.joinWith(df2,"outer")//报错
+//.na
+//.repartition(2,col("id"))
+//ds.stat.freqItems(Seq("a"))//查找列中名为“a”的频繁项目
+
+
+
+/**
+  * 打印Parsed Logical Plan(解析逻辑计划),Analyzed Logical Plan(分析逻辑计划),Optimized Logical Plan(优化逻辑计划),Physical Plan(物理计划)
+  * */
+ds.explain()//默认为false,只打印物理计划到输出控制台
+ds.explain(true)//打印Parsed Logical Plan(解析逻辑计划),Analyzed Logical Plan(分析逻辑计划),Optimized Logical Plan(优化逻辑计划),Physical Plan(物理计划)
+
+
+/**
+  * 打印schema相关信息
+  * */
+println(df.schema)//打印出如下schema信息:
+//StructType(
+//  StructField(Date,StringType,true),
+//  StructField(Open,DoubleType,true),
+//  StructField(High,DoubleType,true),
+//  StructField(Low,DoubleType,true),
+//  StructField(Close,DoubleType,true),
+//  StructField(Volume,IntegerType,true),
+//  StructField(Adj Close,DoubleType,true)
+//)
+df.printSchema()//打印出如下schema信息:
+//root
+//|-- Date: string (nullable = true)
+//|-- Open: double (nullable = true)
+//|-- High: double (nullable = true)
+//|-- Low: double (nullable = true)
+//|-- Close: double (nullable = true)
+//|-- Volume: integer (nullable = true)
+//|-- Adj Close: double (nullable = true)
+Utils.MyPrint.myPrintlnContainer(df.dtypes)//打印出如下schema信息:
+//(age,LongType)
+//(id,LongType)
+//(name,StringType)
+/**
+  * 打印出前面2列名称和类型
+  * */
+println(df.toString())
+//[age: bigint, department: bigint ... 3 more fields]
+
+
+
+/**
+  * 将df转化为数组或者集合
+  * */
+Utils.MyPrint.myPrintlnContainer(df.collect())//得到scala.Array[T]
+Utils.MyPrint.myPrintlnContainer(df.collectAsList())//得到java.util.List[T]
+//下面是Array[Row]的显示结果
+//[16,1,DaWang]
+//[12,2,xiaoming]
+//[12,3,kangkang]
+
+
+
+/**
+  * 将df数据打印到客户端窗口,默认参数:(20,true)
+  * */
+df.show() //20行,显示结果如果过长会截断
+df.show(21) //显示结果如果过长会截断
+df.show(false)//20行
+df.show(21, false)
+
+
+
+/**
+  * 所有列名
+  * */
+Utils.MyPrint.myPrintlnContainer(df.columns)//得到scala.Array[String]
+//age
+//id
+//name
+/**
+  * df的行数
+  * */
+println(df.count())
+/**
+  * 所有输入文件
+  * */
+val files: Array[String] = df.inputFiles
+Utils.MyPrint.myPrintlnContainer(files)
+//    file:///D:/MyDocument/Study/Java/IdeaProjects/SparkProject2_0/src/main/resources/json/person2.json
+//    file:///D:/MyDocument/Study/Java/IdeaProjects/SparkProject2_0/src/main/resources/json/person.json
+/**
+  * 是否本地
+  * */
+println(df.isLocal)
+/**
+  * 是否流式数据源
+  * */
+println(df.isStreaming)
+
+
+
+/**
+  * 第1种写法:将DataFrame转化为DataSet[T]形式,转化之前必须要先导包
+  * 第2,3种写法:将DataFrame转化为DataSet[Row]形式【alias("")底层调用as("")】,但具体不知道这样子转化有甚麽作用
+  * */
+import sqlContext.implicits._											//第1种写法:第1个(要先导包)
+val personDS: Dataset[Person] = df.as[Person]
+val personDS: Dataset[Person] = df.as(ExpressionEncoder[Person]())		//第1种写法:第2个(不用导包)
+val ds: Dataset[Row] = df.as("newTable")								//第2种写法
+val ds: Dataset[Row] = df.alias("newTable")								//第3种写法
+
+
+
+/**
+  * 设置分区数(小于1的话,则设置为1)【如果有排序的话,排序写在前面,设置分区写在后面】
+  * coalesce:不会shuffle,推荐使用
+  * repartition:会shuffle
+  * */
+//val ds: Dataset[Row] = df.sort().coalesce(if (outputNum < 1) 1 else outputNum)
+val ds: Dataset[Row] = df.coalesce(if (outputNum < 1) 1 else outputNum)//推荐使用,不会shuffle
+val ds: Dataset[Row] = df.repartition(if (outputNum < 1) 1 else outputNum)//会shuffle
+val ds: Dataset[Row] = df.repartition(2,col("id"))//这个和下面方法中column参数具体不知道用处
+val ds: Dataset[Row] = df.repartition(col("id"))//分区数由spark.sql.shuffle.partitions确定
+
+
+
+/**
+  *创建临时表,生命周期与创建的SparkSession相关联
+  * */
+df.createOrReplaceTempView("newtable")//存在会替换掉
+df.createTempView("newtable")//存在会报错
+df.registerTempTable("newtable")//底层调用createOrReplaceTempView(""),已弃用(deprecated)
+
+
+
+/**
+  * flapMap使用,对一列,或者字段进行处理再压缩成一列,之后可以对它进行聚合函数的运算.
+  * 使用之前一定要先导入隐式转换import sqlContext.implicits._
+  * 源码例子:计算包含给定字词的图书数量：val ds: Dataset[Book];ds.flatMap(_.words.split(" "))
+  * */
+import sqlContext.implicits._
+val ds: Dataset[String] = df.flatMap(o => o.toString().split(" "))//o为Row类型
+//explode也是和flapMap类似作用,已标注过期
+//val df: DataFrame = df.explode("_corrupt_record","aa")(o=>o.toString.split(" "))//运行失败
+
+//df数据显示
++---------------+
+|_corrupt_record|
++---------------+
+|    1 DaWang 16|
+|  2 xiaoming 12|
+|  3 kangkang 12|
++---------------+
+//ds数据显示
++--------+
+|   value|
++--------+
+|      [1|
+|  DaWang|
+|     16]|
+|      [2|
+|xiaoming|
+|     12]|
+|      [3|
+|kangkang|
+|     12]|
++--------+
+
+
+
+/**
+  * 对每行数据进行操作,最后返回一种类型.
+  * */
+import sqlContext.implicits._
+val ds: Dataset[Int] = df.map(_(1).toString.toInt + 100)
+val ds2: Dataset[Integer] = df.mapPartitions(_.map(_.toString.toInt+1000))//推荐使用
+
+
+
+/**
+  * 将所有行数据聚合成一行,以2行为单位进行操作,最后返回df中元数据类型
+  * */
+val reduce: Person = personDS.reduce((p1, p2) => {
+	Person(p1.id+p2.id, p1.name+p2.name, p1.age+p2.age)
+})
+println(reduce)//Person(80,DaWangxiaomingxiaomingkangkangkangkangjingjingbabysparkspark,118)
+
+
+
+/**
+  * foreach和foreachPartition都是action操作,一般用于遍历
+  * 对df[T]中每一行的数据进行操作【只能遍历操作，修改操作无效】,并且操作是没有返回值的.
+  * 【建议使用foreachPartition】
+  **/
+df.foreach(println(_))//输出每一行
+df.foreachPartition(_.foreach(println))//输出每一行
+import sqlContext.implicits._
+val ds: Dataset[Person] = df.as[Person]//转化为Dataset要先导入
+ds.foreachPartition(coll => coll.foreach(_.age + 100))//在这里进行age+100,然后show(),发现跟原来的ds一样结果
+
+
+
+/**
+  * groupByKey用某一个字段作为key,其它作为value
+  * 具体功能还需要探索.
+  * */
+import sqlContext.implicits._
+val key: KeyValueGroupedDataset[String, Row] = df.groupByKey(o => o(0).toString)
+val count1: Dataset[(String, Long)] = key.agg(count("*"))
+val count2: Dataset[(String, Long)] = key.count()//底层调用agg(functions.count("*").as(ExpressionEncoder[Long]()))
+val keys: Dataset[String] = key.keys
+//+-----+--------+
+//|value|count(1)|
+//+-----+--------+
+//|   15|       2|
+//|   11|       1|
+//|   16|       1|
+//+-----+--------+
+
+
+
+/**
+  * 缓存数据到内存或者硬盘中
+  * */
+val df: DataFrame = df.cache()//默认:MEMORY_AND_DISK,cache()底层调用persist()
+val df: DataFrame = df.persist()//默认:MEMORY_AND_DISK
+val df: DataFrame = df.persist(StorageLevel.MEMORY_AND_DISK)//可设置存储位置
+
+
+
+/**
+  * 删除缓存到内存或者硬盘中的数据,跟cache|persist相反
+  * 参数:是否阻塞直到所有块都被删除。
+  * */
+val df: DataFrame = df.unpersist()//默认:false,不阻塞直到所有块都被删除。
+val df: DataFrame = df.unpersist(true)//阻塞直到所有块都被删除。
+
+
+
+/**
+  * 将df切分成多个ds
+  **/
+val split1: Array[Dataset[Row]] = df.randomSplit(Array(0.2, 0.8))
+split1.foreach(o => {
+  o.show()
+})
+val split2: Array[Dataset[Row]] = df.randomSplit(Array(0.2, 0.8), 12)
+split2.foreach(o => {
+  o.show()
+})
+
+
+
+/**
+  * 采样(是否放回,采样比例(必须小于1),随机种子)
+  * 0.2设置完之后,返回数据行数固定
+  * */
+val sample: Dataset[Row] = df.sample(false,0.2,23)
+val sample: Dataset[Row] = df.sample(false,0.2)
+
+
+
+/**
+  * 得到df
+  **/
+val f: DataFrame = personDS.toDF() //所有行列都不变
+val f2: DataFrame = personDS.toDF("a", "b", "c", "d", "e")//行列也都不变,但是列数不可缺少,否则报错,列名可变.
+
+
+
+/**
+  * 真心感觉这个没软用.
+  * func都已经转化好了,还传给transform,这不是多此一举???
+  * */
+val ds: Dataset[Row] = df.transform(o=>o.select("id"))
+
+
+
+/**
+  * 【强烈要求2个df的schema一定要相同】
+  * except:差集(df-df2)
+  * intersect:交集
+  * union:并集【相当于union all,但没有去重,去重要再加distinct】(schema顺序不一致,也会union,但一定不是你想要的结果.)
+  * */
+val except: Dataset[Row] = df.except(df2)
+val intersect: Dataset[Row] = df.intersect(df3)
+val union: Dataset[Row] = df3.union(except)
+val union: Dataset[Row] = df3.unionAll(except)//底层调用union方法,2.0.0标注弃用
+
+
+
+/**
+  * join联结操作
+  * JoinType:`inner`, `outer`, `left_outer`, `right_outer`, `leftsemi`
+  **/
+var join: DataFrame = df.join(df2) //笛卡尔连接(总行数=size1*size2)
+//join=df.join(df2,"id")//只能内联结(自联结也可使用),"id"必须是2个df都有的字段名,否则会报:org.apache.spark.sql.AnalysisException
+//| id|age|    name|    name|
+//+---+---+--------+--------+
+//|  2| 16|  DaWang|xiaoming|
+//|  2| 16|  DaWang|  DaWang|
+//|  2| 12|xiaoming|xiaoming|
+//|  2| 12|xiaoming|  DaWang|
+//| 21| 12|xiaoming|xiaoming|
+//join=df.join(df2,df("id").equalTo(df2("id")))//只能内联结,和下面是等价的,推荐使用
+//join=df.join(df2,Seq("id","id"))//只能内联结,联结的时候2个字段名称一样,禁止使用
+//|age| id|    name| id|    name|
+//+---+---+--------+---+--------+
+//| 16|  2|  DaWang|  2|xiaoming|
+//| 16|  2|  DaWang|  2|  DaWang|
+//| 12|  2|xiaoming|  2|xiaoming|
+//| 12|  2|xiaoming|  2|  DaWang|
+//| 12| 21|xiaoming| 21|xiaoming|
+//join=df.join(df2,df("id").equalTo(df2("id")),"outer")//和下面是等价的,推荐使用
+//join=df.join(df2,Seq("id","id"),"outer")//联结的时候2个字段名称一样,禁止使用
+//| id| id|age|    name|
+//+---+---+---+--------+
+//|  2|  2| 16|  DaWang|
+//|  2|  2| 12|xiaoming|
+//| 21| 21| 12|xiaoming|
+
+
+
+/**
+  * 真不知道这个joinWith的作用效果
+  * */
+var join: Dataset[(Row, Row)] = df.joinWith(df2,df("id").equalTo(df2("id")))
+var join: Dataset[(Row, Row)] = df.joinWith(df2,df("id").equalTo(df2("id")),"outter")//这句话和上面执行结果一样
+//|              _1|           _2|
+//+----------------+-------------+
+//|   [16,2,DaWang]|   [2,DaWang]|
+//|   [16,2,DaWang]| [2,xiaoming]|
+//|   [16,2,DaWang]|[21,xiaoming]|
+//| [12,2,xiaoming]|   [2,DaWang]|
+//| [12,2,xiaoming]| [2,xiaoming]|
+//| [12,2,xiaoming]|[21,xiaoming]|
+//|[12,21,xiaoming]|   [2,DaWang]|
+//|[12,21,xiaoming]| [2,xiaoming]|
+//|[12,21,xiaoming]|[21,xiaoming]|
+//| [12,3,kangkang]|   [2,DaWang]|
+//| [12,3,kangkang]| [2,xiaoming]|
+//| [12,3,kangkang]|[21,xiaoming]|
+//|[12,31,kangkang]|   [2,DaWang]|
+//|[12,31,kangkang]| [2,xiaoming]|
+//|[12,31,kangkang]|[21,xiaoming]|
+//| [13,4,jingjing]|   [2,DaWang]|
+//| [13,4,jingjing]| [2,xiaoming]|
+//| [13,4,jingjing]|[21,xiaoming]|
+//|     [11,5,baby]|   [2,DaWang]|
+//|     [11,5,baby]| [2,xiaoming]|
+//|     [11,5,baby]|[21,xiaoming]|
+//|    [15,6,spark]|   [2,DaWang]|
+//|    [15,6,spark]| [2,xiaoming]|
+//|    [15,6,spark]|[21,xiaoming]|
+//|    [15,6,spark]|   [2,DaWang]|
+//|    [15,6,spark]| [2,xiaoming]|
+//|    [15,6,spark]|[21,xiaoming]|
+
+
+
+/**
+  * 过滤行,得到Ds[Row],其中where("")底层调用filter("")
+  * df建议第1,2种写法,ds建议第3种写法
+  * */
+val ds: Dataset[Row] = df.filter("year(Date)==2016")//第1种写法：这个和下面2个是等价的
+val ds: Dataset[Row] = df.filter(year(new Column("Date")).equalTo(2016))//第2种写法：传入参数是Column类型
+val ds: Dataset[Row] = df.filter((o: Row) => o(0).toString.substring(0, 4).toInt == 2016)//第3种写法：角标从0开始
+val ds: Dataset[Row] = df.filter("low==91.5")//这个和下面是等价的
+val ds: Dataset[Row] = df.filter("low=91.5")
+val ds: Dataset[Row] = df.filter("low>91.5")
+val ds: Dataset[Row] = df.filter("low<91.5")//这个和下面是等价的
+val ds: Dataset[Row] = df.where("low<91.5")
+
+
+
+/**
+  * agg(xx)搭配functions中聚合函数使用:【常用:`avg`|`mean`, `max`, `min`, `sum`, `count`;其它:"average", "stddev", "std", "size"等】
+  * 有3种写法,推荐第1种
+  * 下面的聚合函数相当于如下SQL语句.select max(age),avg(id),count(name) from table
+  * */
+val df: DataFrame = df.agg(max("age"),avg("id").as("id_avg"),count("name").alias("name_count"))//第1种写法：输入参数Column对象,可设置别名,强烈推荐
+val df: DataFrame = df.agg("age"->"max",("id"->"avg"),("name","count"))//第2种写法：输入参数是(String,String)类型,这种tuple类型有3种写法
+val df: DataFrame = df.agg(Map("age"->"max",("id"->"avg"),("name","count")))第3种写法：传入Map对象
+//+--------+-------+-----------+
+//|max(age)|avg(id)|count(name)|
+//+--------+-------+-----------+
+//|      16|    3.5|          6|
+//+--------+-------+-----------+
+
+
+
+/**
+  * groupby一般跟聚合函数搭配使用
+  * groupBy("","")分组之后再跟聚合函数,有:【avg/mean,max,min,sum,count()】
+  * 也可以groupBy("","")分组之后再跟agg(column),agg里面是跟要聚合的列名,并且设置聚合之后列名,推荐使用!!!
+  * 最下面的聚合函数相当于如下SQL语句.select age,sum(id) as id_sum,avg(id) as id_avg from table group by age
+  * 如果要设置age默认不输出,则给spark.sql.retainGroupColumns设置为false,它默认为true
+  * ////////////////////////////////////////////////////////////////////////////////
+  * pivot("","")方法是对前一个分组再进行分组的方法
+  * 源码案例:计算课程每年的收入总和，每个课程作为一个单独的列
+  * df.groupBy("year").pivot("course", Seq("dotNET", "Java")).sum("earnings")
+  **/
+val grouped: RelationalGroupedDataset = df.groupBy("age")
+val df: DataFrame = grouped.agg(max("id").as("id_max"), max("age").alias("age_max"))//age默认会输出
+val df: DataFrame = grouped.max("id", "age") //在每个分组里面求id字段最大值,age字段最大值
+val df: DataFrame = grouped.agg(sum("id").as("id_sum"), avg("id").alias("id_avg")) //另一种写法不可用
+//grouped.sum("id").avg("id")//这样子写会报错
+////////////////////////////////////////////////////////////////////////////////
+//下面2句翻译:先根据age分组,再对name中值为"xiaoming", "kangkang"进行sum,avg统计
+val pivot: RelationalGroupedDataset = grouped.pivot("name", Seq("xiaoming", "kangkang"))
+pivot.agg(sum("id").as("id_sum"), avg("id").alias("id_avg")).show()//上面Seq集合中超过1个,这里设置别名就无效,如下图
+//+---+------------------------------+------------------------------+------------------------------+------------------------------+
+//|age|xiaoming_sum(`id`) AS `id_sum`|xiaoming_avg(`id`) AS `id_avg`|kangkang_sum(`id`) AS `id_sum`|kangkang_avg(`id`) AS `id_avg`|
+//+---+------------------------------+------------------------------+------------------------------+------------------------------+
+//| 12|                            23|                          11.5|                            34|                          17.0|
+//| 11|                          null|                          null|                          null|                          null|
+//| 13|                          null|                          null|                          null|                          null|
+//+---+------------------------------+------------------------------+------------------------------+------------------------------+
+//val df: DataFrame = grouped.pivot("name").agg(sum("id"),avg("id"))//这个对name字段中【所有值】再进行聚合运算,不推荐使用
+
+
+
+/**
+  * 获取col1,col2笛卡尔结果,并在这基础上求聚合函数.(有null字段,不知道怎么回事???)
+  * 用法跟groupBy.agg类似,但得到结果内容是更丰富.
+  * 源码示例:
+  * 计算按部门和组汇总的所有数字列的平均值:ds.rollup($"department", $"group").avg()
+  * 计算最大年龄和平均工资，按部门和性别汇总:ds.rollup($"department", $"gender").agg("salary" -> "avg","age" -> "max")
+  **/
+val agg: DataFrame = df.rollup("department", "gender").agg(avg("age").as("age_avg"), max("id").alias("id_max"))
+//|department|gender|          age_avg|id_max|
+//+----------+------+-----------------+------+
+//|         1|  null|             12.0|    31|
+//|      null|  null|13.11111111111111|    31|
+//|         1|     1|             12.0|     3|
+//|         0|     1|             12.0|     2|
+//|         0|  null|             14.0|     2|
+//|         0|     0|             16.0|     2|
+//|         2|     0|             15.0|     6|
+//|         1|     0|             12.0|    31|
+//|         2|  null|             13.5|     6|
+//|         2|     1|             12.0|     5|
+
+
+
+/**
+  * 删除指定列
+  * */
+val df2: DataFrame = df.drop("age")
+val df2: DataFrame = df.drop("age","id")
+
+
+
+/**
+  * 对列的数据进行去重(也可以对多个列,一行数据进行去重)
+  * */
+val ds: Dataset[Row] = df.dropDuplicates("age")//从上到下,上面age已存在的话,下面的那条数据删除
+val ds: Dataset[Row] = df.dropDuplicates("age","id")//从上到下,上面某条数据中age和id都已存在,则下面那条数据删除
+val ds: Dataset[Row] = df.dropDuplicates()//从上到下,删除重复行
+val ds: Dataset[Row] = df.distinct()//distinct()底层调用dropDuplicates()
+
+
+
+/**
+  * 这个暂时不是很清楚,待分析.
+  * 源码示例:查找返回列名为“a”的所有项目. ds.stat.freqItems(Seq("a"))
+  * */
+val df2: DataFrame = df.stat.freqItems(Seq("name"))//相当于将一整列数据变为一单元格数据
+val df3: DataFrame = df.stat.freqItems(Seq("name", "age"))
+//|      name_freqItems|       age_freqItems|
+//+--------------------+--------------------+
+//|[baby, kangkang, ...|[11, 13, 16, 12, 15]|
+
+
+
+/**
+  * cube暂时不知道具体怎么用法
+  * */
+df.cube("age").avg().show(false)
+df.cube("id","age").avg().show(false)
+
+
+
+/**
+  * 返回前面n行数据
+  * */
+val first: Row = df.head()//返回第1行数据
+val first: Row = df.first()//first()底层调用head()
+//下面都是返回前面n行数据
+val head: Array[Row] = df.head(2)//数据类型:scala.Array[T]
+val head: Array[Row] = df.take(2)//take(n)底层调用head(n)
+val head: java.util.List[Row] = df.takeAsList(2)//数据类型:java.util.List[T]
+val limit: Dataset[Row] = df.limit(2)//数据类型:Dataset[T]
+println(first)//[16,1,DaWang]
+
+
+
+/**
+  * 通过添加列或替换具有相同名称的现有列，返回新的数据集。
+  * 下面:df数据中有age列,没有age2列.
+  **/
+val df2: DataFrame = df.withColumn("age2", col("age")+100)//添加列age2,数据来源:col("age")+100
+val df3: DataFrame = df.withColumn("age", col("age")+100)//用【col("age")+100】替换现有的age列
+
+
+
+/**
+  * 重命名列名,参数:(旧列名,新列名)
+  * 如果旧列名不存在,则返回原df
+  * */
+val df2: DataFrame = df.withColumnRenamed("age","age2")
+val df3: DataFrame = df.withColumnRenamed("age3","age2")
+
+
+
+/**
+  * 排序方法【推荐第1种写法,因为可设置排序方式.第2种写法,默认升序】
+  * sort是全局排序【全局有序】,所有分区会shuffle操作
+  * sortWithinPartitions是分区内排序【非全局有序】,不会进行shuffle
+  * */
+val df: DataFrame = df.sort(col("id").asc, col("age").desc)//第1种写法:先根据id升序,如果有相同的id再根据age降序
+val df: DataFrame = df.sort("id", "age")//第2种写法:先根据id升序,如果有相同的id再根据age升序
+val df: DataFrame = df.orderBy(col("id").asc, col("age").desc)//orderBy()底层调用sort()
+val df: DataFrame = ds.sortWithinPartitions(col("id").asc,col("age").desc).show()//第1种写法:
+val df: DataFrame = ds.sortWithinPartitions("id","age")//第2种写法:
+
+
+/**
+  * 查询语句
+  **/
+val df2: DataFrame = df.select(col("*"), col("id").as("newId"))//第1类第1种写法:返回值是df类型的,可设置别名,推荐使用
+val df2: DataFrame = df.select("*", "id")//第1类第2种写法:只能查询列,不能对列结果进行修改,不能设置别名
+val df2: DataFrame = df.selectExpr("id +1 as newId", "*")//第1类第3种写法:可设置别名
+val ds2: Dataset[Long] = df.select(expr("id + 1 as newId").as[Long])//第2类第1种写法:返回值是ds类型的,2种都可设置别名
+val ds2: Dataset[Long] = df.select((col("id") + 1).alias("newId").as[Long])//第2类第2种写法:推荐使用
+
+
+
+/**
+  * 统计数字类型的字段(其它类型字段忽略):
+  * 计数,平均数,标准偏差[标准差],最小值,最大值
+  * */
+val df: DataFrame = df.describe()
+//+-------+------------------+------------------+
+//|summary|               age|                id|
+//+-------+------------------+------------------+
+//|  count|                 7|                 7|
+//|   mean|13.428571428571429| 3.857142857142857|
+//| stddev|1.9023794624226835|1.9518001458970664|
+//|    min|                11|                 1|
+//|    max|                16|                 6|
+//+-------+------------------+------------------+
+
+
+
+ people.filter("age > 30")
+    .join(department, people("deptId") === department("id"))
+    .groupBy(department("name"), "gender")
+    .agg(avg(people("salary")), max(people("age")))
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// object:functions
+// 需要先导入import org.apache.spark.sql.functions._
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/**
+  * 这里Date格式:"2016-7-11",year方法读取到2016
+  * 如果Date格式:"2016/7/11",则year方法读取到的为null
+  * */
+
+df.select(year(new Column("Date"))).show(10)
+
+
+/**
+  * window方法只能在groupBy方法中使用
+  * 根据时间进行分组,复数单位有[seconds,minutes,hours,days,weeks,months,years]
+  * */
+val iteblogWindowWithStartTime: DataFrame = df.groupBy(window(col("Date"), "1 week", "1 week", "4 days")).agg(avg("Close").as("weekly_average"))
+
+
+
+/**
+  * 创建Column,ds("")底层调用col(""),col("")底层调用new Column("")
+  * 然后可以对Column进行+,-,/,*
+  * */
+val name: Column = col("name")<==>new Column("name")<==>personDs("name")
+
+
