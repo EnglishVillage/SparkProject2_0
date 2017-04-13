@@ -10,17 +10,20 @@ import scala.annotation.tailrec
   */
 object ScalaTest {
   def main(args: Array[String]) {
-//    test()
+    //    test()
 
     //    println(sum(List(1, 2, 3, 4, 5)))
     //    println(max(List(1, 2, 3, 4, 5)))
     //    println(reverseString("abcdefg"))
-    //    println(quickSort(List(11, 2, 31, 14, 5)))
+    val begin: Long = System.currentTimeMillis
+    //println(quickSort(List(2, 0, 7, 10, 3, 4, 5, 9, 6, 8, 11, 1, 12, 6, 3)))
+    quickSort(List(2, 0, 7, 10, 3, 4, 5, 9, 6, 8, 11, 1, 12, 6, 3))
+    val end: Long = System.currentTimeMillis
+    System.out.println(end - begin + "ms")
     //    println(factorial1(6))
     //    println(factorial2(6))
     //    println(countChange(20,List(1,2,5)))
   }
-
 
 
   def test(): Unit = {
@@ -34,11 +37,11 @@ object ScalaTest {
   }
 
   /**
-   * 作者: 王坤造
-   * 日期: 2016/11/5 2:43
-   * 名称：测试Iterator.forall方法
-   * 备注：
-   */
+    * 作者: 王坤造
+    * 日期: 2016/11/5 2:43
+    * 名称：测试Iterator.forall方法
+    * 备注：
+    */
   def testForallFunc(): Unit = {
     val s1: Seq[String] = Seq("age", "name", "id")
     val s2: Seq[String] = Seq("age", "id")
@@ -109,7 +112,7 @@ object ScalaTest {
     if (list.isEmpty) {
       list
     } else {
-      quickSort(list.filter(o => o < list.head)) ::: (list.head :: quickSort(list.filter(o => o > list.head)))
+      quickSort(list.filter(o => o < list.head)) ::: (list.head :: quickSort(list.filter(o => o >= list.head)))
     }
   }
 
@@ -126,6 +129,7 @@ object ScalaTest {
       1
     }
   }
+
   /**
     * 作者: 王坤造
     * 日期: 2016/10/20 17:30
@@ -139,14 +143,15 @@ object ScalaTest {
     }
     loop(1, n)
   }
-  def testfactorial(): Unit ={
+
+  def testfactorial(): Unit = {
     val begin: Long = System.currentTimeMillis()
-    for(i <- 0 until 10000){
-      factorial1(10000)     //830ms+
+    for (i <- 0 until 10000) {
+      factorial1(10000) //830ms+
       //factorial2(10000)   //400ms+  [这个较优]
     }
     val end: Long = System.currentTimeMillis()
-    println(end-begin+"ms")
+    println(end - begin + "ms")
   }
 
   /**

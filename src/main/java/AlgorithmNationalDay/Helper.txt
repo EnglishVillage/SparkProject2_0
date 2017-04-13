@@ -1,4 +1,0 @@
-String:
-	LCS:滚动数组
-	LCS:求所有的LCS字符串
-	贪心法:LIS

@@ -1,17 +1,25 @@
 package AlgorithmNationalDay.String2;
 
+import MyCommons.UtilsJava;
+
 /**
- * Created by Administrator on 2016/10/19.
- * 名称：字符串循环左移
- * 备注：【(X'Y')'=YX   =>  (bafedc)'=cdefab】时间复杂度O(N),空间复杂度O(1)
- * 参考：
+ * @author: 王坤造
+ * @date: 2017/4/14 1:28
+ * @comment: 字符串循环左移(完美洗牌)
+ * @return: 【XY=>(X'Y')'=YX   ==>  abcdef=>(bafedc)'=cdefab】时间复杂度O(N),空间复杂度O(1)
+ * @notes:
+ * 1.暴力移位法:每次循环左移1位,调用k次即可.时间复杂度O(kN),空间复杂度O(k).
+ * 2.三次拷贝:时间复杂度O(N),空间复杂度O(k).
+ *  S[0...k]->T[0...k]【从S数组拷贝k个到T数组】
+ *  S[k+1...N-1]->S[0...N-k-1]【将S数组后面(N-k)们左移k位】
+ *  T[0...k]->S[N-k-1...N-1]【从T数组拷贝k个到S数组】
  */
 public class StringRotateLeft {
     public static void main(String[] args) {
         //"abcdef"=>"cdefab"    循环左移2位
         //testTime();
-        rotateLeft("abcdef", 2);
-        rotateRight("abcdef", 4);
+        rotateLeft("abcdef", 2);    //cdefab
+        //rotateRight("abcdef", 4);
     }
 
     static void testTime() {
@@ -25,16 +33,20 @@ public class StringRotateLeft {
     }
 
     /**
-     * @Author 王坤造
-     * @Date 2016/10/19 15:41
-     * 名称：字符串循环左移
-     * 备注：【(X'Y')'=YX   =>  (bafedc)'=cdefab】时间复杂度O(N),空间复杂度O(1)
+     * @author: 王坤造
+     * @date: 2017/4/14 0:37
+     * @comment: 字符串循环左移
+     * @return:
+     * @notes:
+     * 【(X'Y')'=YX   =>  (bafedc)'=cdefab】时间复杂度O(N),空间复杂度O(1)
+     *
      */
-    static void rotateLeft(String s, int n) {
+    public static String rotateLeft(String s, int n) {
         int length = s.length() - 1;
-        s = reverseString(s, 0, n - 1);//得到X'
-        s = reverseString(s, n, length);//得到Y'
-        s = reverseString(s, 0, length);//得到(X'Y')'
+        s = UtilsJava.MyString.reverseString(s, 0, n - 1);//得到X'Y=>bacdef
+        s = UtilsJava.MyString.reverseString(s, n, length);//得到X'Y'=>bafedc
+        s = UtilsJava.MyString.reverseString(s, 0, length);//得到(X'Y')'(等价于YX)=>cdefab
+        return s;
     }
 
     /**
@@ -43,49 +55,11 @@ public class StringRotateLeft {
     * 名称：字符串循环右移
     * 备注：本质上就是循环左移,转化为==>   左移长度=总长度-右移长度
     */
-    static void rotateRight(String s, int n) {
+    public static void rotateRight(String s, int n) {
         int length = s.length() - 1;
         n = length - n + 1;
-        s = reverseString(s, 0, n - 1);//得到X'
-        s = reverseString(s, n, length);//得到Y'
-        s = reverseString(s, 0, length);//得到(X'Y')'
+        s = UtilsJava.MyString.reverseString(s, 0, n - 1);//得到X'
+        s = UtilsJava.MyString.reverseString(s, n, length);//得到Y'
+        s = UtilsJava.MyString.reverseString(s, 0, length);//得到(X'Y')'
     }
-
-    private static String reverseString(String s, int from, int to) {
-        char[] arr = s.toCharArray();
-        while (from < to) {
-            char c = arr[from];
-            arr[from++] = arr[to];
-            arr[to--] = c;
-        }
-        s = new String(arr);
-        System.out.println(s);
-        return s;
-    }
-
-
-
-
-
-    private static void rotateLeft2(String s, int n) {
-        int length = s.length() - 1;
-        s = reverseString2(s, 0, n - 1);//得到X'
-        s = reverseString2(s, n, length);//得到Y'
-        s = reverseString2(s, 0, length);//得到(X'Y')'
-    }
-
-    private static String reverseString2(String s, int from, int to) {
-        StringBuilder sb = new StringBuilder(s);
-        while (from < to) {
-            char c = sb.charAt(from);
-            sb.replace(from, ++from, sb.charAt(to) + "");
-            sb.replace(to, to + 1, c + "");
-            to--;
-        }
-        s = sb.toString();
-        //System.out.println(s);
-        return s;
-    }
-
-
 }

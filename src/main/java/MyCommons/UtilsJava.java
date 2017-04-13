@@ -1,5 +1,7 @@
 package MyCommons;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.*;
 
 /**
@@ -213,8 +215,23 @@ public class UtilsJava {
         /**
          * @Author 王坤造
          * @Date 2016/10/19 16:33
-         * 名称：反转字符串[from,to]
+         * 名称：反转字符串
          * 备注：测试100k次,22ms
+         */
+        public static String reverseString(String s) {
+            if (StringUtils.isNotEmpty(s)) {
+                s= reverseString(s, 0, s.length() - 1);
+            }
+            return s;
+        }
+
+        /**
+         * @author: 王坤造
+         * @date: 2017/4/14 0:57
+         * @comment: 反转字符串[from,to]
+         * @return:
+         * @notes: 测试100k次,22ms
+         * reverseString("abcdef",0,1)=>"bacdef"
          */
         public static String reverseString(String s, int from, int to) {
             if (s != null) {
@@ -260,6 +277,51 @@ public class UtilsJava {
             return str == null ? null : (new StringBuilder(str)).reverse().toString();
         }
     }
+
+    public static class CollectionUtils {
+        /**
+         * 作者: 王坤造
+         * 日期: 2017/1/3 23:20
+         * 名称：判断是否为空
+         * 备注：为空返回true
+         */
+        public static <T extends Object> boolean isEmpty(Collection<T> coll) {
+            return coll == null || coll.size() < 1;
+        }
+
+        /**
+         * 作者: 王坤造
+         * 日期: 2017/1/3 23:20
+         * 名称：判断是否不为空
+         * 备注：不为空返回true
+         */
+        public static <T extends Object> boolean isNotEmpty(Collection<T> coll) {
+            return coll != null && coll.size() > 0;
+        }
+    }
+
+    public static class ArrayUtils {
+        /**
+         * 作者: 王坤造
+         * 日期: 2017/1/3 23:20
+         * 名称：判断是否为空
+         * 备注：为空返回true
+         */
+        public static <T extends Object> boolean isEmpty(T[] arr) {
+            return arr == null || arr.length < 1;
+        }
+
+        /**
+         * 作者: 王坤造
+         * 日期: 2017/1/3 23:20
+         * 名称：判断是否不为空
+         * 备注：不为空返回true
+         */
+        public static <T extends Object> boolean isNotEmpty(T[] arr) {
+            return arr != null && arr.length > 0;
+        }
+    }
+
 
     /**
      * 作者: 王坤造
