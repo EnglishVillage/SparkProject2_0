@@ -57,9 +57,9 @@ object Utils {
           myPrintlnScalaArray(collect.asInstanceOf[Array[Any]])
         } catch {
           case ex: Exception =>
-            collect.getClass.getComponentType.toString match{
+            collect.getClass.getComponentType.toString match {
               //类型Array[Int]不知道为甚麽匹配不出来
-              case "int"=>collect.asInstanceOf[Array[Int]].foreach(println)
+              case "int" => collect.asInstanceOf[Array[Int]].foreach(println)
             }
         }
       } else {

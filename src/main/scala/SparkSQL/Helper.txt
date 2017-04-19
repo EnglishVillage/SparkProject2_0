@@ -1,3 +1,6 @@
+DataFrame本质就是DataSet
+
+
 https://www.iteblog.com/archives/1380#1Spark_SQL
 和《Spark SQL整合PostgreSQL》文章中用到的load函数类似，在使用CSV类库的时候，我们需要在options中传入以下几个选项：
 　　1、path：看名字就知道，这个就是我们需要解析的CSV文件的路径，路径支持通配符；
@@ -310,6 +313,7 @@ println(reduce)//Person(80,DaWangxiaomingxiaomingkangkangkangkangjingjingbabyspa
   * foreach和foreachPartition都是action操作,一般用于遍历
   * 对df[T]中每一行的数据进行操作【只能遍历操作，修改操作无效】,并且操作是没有返回值的.
   * 【建议使用foreachPartition】
+  * 每行进行修改操作并返回用map
   **/
 df.foreach(println(_))//输出每一行
 df.foreachPartition(_.foreach(println))//输出每一行
