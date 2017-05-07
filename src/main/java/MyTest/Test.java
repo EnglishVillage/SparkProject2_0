@@ -8,7 +8,11 @@ import java.util.HashMap;
  */
 public class Test {
     public static void main(String[] args) {
-        testNull();
+//        testNull();
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            list.add(i);
+        }
     }
 
     /**
