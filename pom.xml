@@ -9,6 +9,9 @@
     <version>1.0</version>
 
     <properties>
+        <commons-codec.version>1.10</commons-codec.version>
+        <commons-collections.version>3.2.1</commons-collections.version>
+        <commons-lang3.version>3.4</commons-lang3.version>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
         <encoding>UTF-8</encoding>
@@ -19,6 +22,24 @@
 
 
     <dependencies>
+        <!--常用帮助类-->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons-codec.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commons-collections.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.scala-lang</groupId>

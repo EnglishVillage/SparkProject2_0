@@ -1,6 +1,6 @@
 package AlgorithmNationalDay.LinkedListRecursionStack1;
 
-import MyCommons.UtilsJava;
+import org.apache.commons.collections.CollectionUtils;
 
 import java.util.*;
 
@@ -216,8 +216,10 @@ class GraphShortest {
                 }
                 queue.add(node);
 
+                NodeShortest[] nodeShortests = relationMap.get(node);
                 //获取" '中心节点A的周围节点B' 的周围节点C",并判断"周围节点C"是否有在节点关系的集合中,有的话将"周围节点C"的节点关系存储起来
-                Set<NodeShortest> nodeSidesExceptOne = UtilsJava.ArrayTo.Array2HashSet(relationMap.get(node));
+                HashSet<NodeShortest> nodeSidesExceptOne = new HashSet<>(nodeShortests.length);
+                CollectionUtils.addAll(nodeSidesExceptOne,nodeShortests);
                 ArrayList<NodeRelation> nodeSidesRelations = new ArrayList<>();
                 for (NodeRelation nodeRelation : nodeRelationMap.values()) {
                     if (nodeSidesExceptOne.contains(nodeRelation.endNode)) {

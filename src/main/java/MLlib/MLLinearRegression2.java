@@ -1,5 +1,6 @@
 package MLlib;
 
+import MyCommons.UtilsJava;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -20,7 +21,7 @@ public class MLLinearRegression2 {
         JavaSparkContext sc = new JavaSparkContext(sparkConf);
 
 
-        JavaRDD<String> data = sc.textFile(MyCommons.Utils.resourcesPath()+"lpsa.data");
+        JavaRDD<String> data = sc.textFile(UtilsJava.resourcesPath+"lpsa.data");
         JavaRDD<LabeledPoint> parsedData = data.map(line -> {
             String[] parts = line.split(",");
             double[] ds = Arrays.stream(parts[1].split(" ")).mapToDouble(Double::parseDouble).toArray();

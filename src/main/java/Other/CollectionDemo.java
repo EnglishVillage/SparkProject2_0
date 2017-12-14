@@ -20,11 +20,9 @@ public class CollectionDemo {
         List<Integer> integers = new ArrayList<Integer>(){{add(1);add(2);add(3);}};
         System.out.println(integers.toArray(new Integer[]{}));
 
-
-
-        UtilsJava.MyPrint.print(UtilsJava.CollectionTo.Collection2Array(integers));
+        UtilsJava.MyPrint.print(integers.toArray());
         Set<Integer> set = new HashSet<Integer>(){{add(11);add(22);add(33);}};
-        UtilsJava.MyPrint.print(UtilsJava.CollectionTo.Collection2Array(set));
+        UtilsJava.MyPrint.print(set.toArray());
     }
 
     static void test1() {

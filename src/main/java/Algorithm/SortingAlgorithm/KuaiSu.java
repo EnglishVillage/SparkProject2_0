@@ -1,8 +1,10 @@
 package Algorithm.SortingAlgorithm;
 
 import MyCommons.UtilsJava;
+import org.apache.commons.collections.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -94,8 +96,8 @@ public class KuaiSu {
      * 备注：
      */
     public static Integer[] quickSortWithDistinct(Integer[] arr) {
-        List<Integer> list = quickSortWithDistinctCore(UtilsJava.ArrayTo.Array2List(arr));
-        return UtilsJava.CollectionTo.Collection2Array(list, new Integer[]{});
+        List<Integer> list = quickSortWithDistinctCore(Arrays.asList(arr));
+        return list.toArray(new Integer[list.size()]);
     }
 
     private static List<Integer> quickSortWithDistinctCore(List<Integer> list) {
@@ -130,12 +132,13 @@ public class KuaiSu {
     }
 
     public static Integer[] quickSortWithDistinct2(Integer[] arr) {
-        List<Integer> list = UtilsJava.ArrayTo.Array2List(arr);
-        return UtilsJava.CollectionTo.Collection2Array(quickSortWithDistinctCore2(list), new Integer[]{});
+        List<Integer> list = Arrays.asList(arr);
+        List<Integer> integers = quickSortWithDistinctCore2(list);
+        return integers.toArray(new Integer[integers.size()]);
     }
 
     private static List<Integer> quickSortWithDistinctCore2(List<Integer> list) {
-        if (UtilsJava.CollectionUtils.isEmpty(list)) {
+        if (CollectionUtils.isEmpty(list)) {
             return new ArrayList<>();
         }
         Integer head = list.get(0);
